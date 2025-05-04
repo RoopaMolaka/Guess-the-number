@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 
 const App = () => {
-  const [value, setValue] = useState();
-  const [generatedNumber, setGeneratedNumber] = useState();
+  const [value, setValue] = useState(0);
+  const [generatedNumber, setGeneratedNumber] = useState(0);
   const [successMessage, setSuccessMessage] = useState("");
   const [failureMessage, setFailureMessage] = useState("");
 
