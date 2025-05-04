@@ -1,25 +1,55 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const [value, setValue] = useState();
+  const [generatedNumber, setGeneratedNumber] = useState();
+  const [successMessage, setSuccessMessage] = useState("");
+  const [failureMessage, setFailureMessage] = useState("");
+
+  const GenerateRandomNumber = () => {
+    const Number = Math.floor(Math.random() * 10);
+    setGeneratedNumber(Number);
+    // console.log(Number);
+  };
+
+  const handleClick = () => {
+    if (generatedNumber == value) {
+      setSuccessMessage("Yahooo! You have won");
+    } else if (value > generatedNumber) {
+      setFailureMessage("your number is high ,try again ");
+    } else {
+      setFailureMessage("your number is low ,try again ");
+    }
+  };
+  useEffect(() => {
+    GenerateRandomNumber();
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <div>
+          <h1>Guess The Number</h1>
+          <p>Guess the numbers from 1 to 10</p>
+        </div>
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
+          placeholder="Enter the number"
+        />
+        <button onClick={handleClick}>Guess the number</button>
+        {successMessage ? (
+          <p className="success">{successMessage}</p>
+        ) : (
+          failureMessage && <p className="failure">{failureMessage}</p>
+        )}
+        <button onClick={GenerateRandomNumber}>Reset</button>
+      </div>
+    </>
   );
-}
+};
 
 export default App;
